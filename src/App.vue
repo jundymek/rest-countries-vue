@@ -2,10 +2,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { useGetCountry } from "@/composables/useGetCountry";
 
 export default defineComponent({
   name: "App",
   components: {},
+  setup() {
+    const { getAllCountries } = useGetCountry();
+    getAllCountries();
+  },
 });
 </script>
 
