@@ -4,7 +4,6 @@
       v-for="country in countries"
       :key="country.name"
       :country="country"
-      class="country"
     />
   </div>
 </template>

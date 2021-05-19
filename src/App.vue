@@ -30,6 +30,10 @@ export default defineComponent({
   margin-top: 60px;
 }
 
+body {
+  background: $veryLightGray;
+}
+
 .outer-wrapper {
   max-width: 1440px;
   margin: 0 auto;
