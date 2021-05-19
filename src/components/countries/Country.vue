@@ -11,13 +11,13 @@
 </template>
 
 <script lang="ts">
-import { Country } from "@/composables/useGetCountry";
+import { CountryType } from "@/composables/useGetCountry";
 import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   props: {
     country: {
-      type: Object as PropType<Country>,
+      type: Object as PropType<CountryType>,
       required: true,
     },
   },
@@ -31,7 +31,6 @@ export default defineComponent({
 .box {
   width: auto;
   padding: 0;
-  margin: 20px;
   display: flex;
   flex-direction: column;
   background: $white;
@@ -40,7 +39,7 @@ export default defineComponent({
 
 .flag {
   height: 50%;
-  width: 280px;
+  width: 100%;
 }
 
 .content {

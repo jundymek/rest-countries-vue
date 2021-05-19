@@ -13,7 +13,7 @@ interface Language {
   nativeName: string;
 }
 
-export interface Country {
+export interface CountryType {
   name: string;
   nativeName: string;
   population: number;
@@ -27,15 +27,17 @@ export interface Country {
   flag: string;
 }
 
-const countries = ref<Country[] | undefined>(undefined);
+const countries = ref<CountryType[] | undefined>(undefined);
+const filteredCountries = ref<CountryType[] | undefined>(undefined);
 const error = ref("");
 const isLoading = ref(false);
 
 export const useGetCountry = (): {
   error: Ref<string>;
   isLoading: Ref<boolean>;
-  countries: Ref<Country[] | undefined>;
+  countries: Ref<CountryType[] | undefined>;
   getAllCountries: () => Promise<void>;
+  filteredCountries: Ref<CountryType[] | undefined>;
 } => {
   const getAllCountries = async () => {
     if (isLoading.value) return;
@@ -48,6 +50,7 @@ export const useGetCountry = (): {
       const data = await response.json();
       isLoading.value = false;
       countries.value = data;
+      filteredCountries.value = data;
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -58,7 +61,8 @@ export const useGetCountry = (): {
   return {
     error,
     isLoading: computed(() => isLoading.value),
-    getAllCountries,
     countries,
+    getAllCountries,
+    filteredCountries,
   };
 };
