@@ -1,12 +1,15 @@
-<template>start</template>
+<template>
+  <page-header />
+</template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useGetCountry } from "@/composables/useGetCountry";
+import PageHeader from "@/components/pageHeader/PageHeader.vue";
 
 export default defineComponent({
   name: "App",
-  components: {},
+  components: { PageHeader },
   setup() {
     const { getAllCountries } = useGetCountry();
     getAllCountries();

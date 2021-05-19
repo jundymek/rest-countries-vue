@@ -42,7 +42,9 @@ export const useGetCountry = (): {
     isLoading.value = true;
 
     try {
-      const response = await fetch("https://restcountries.eu/rest/v2/all");
+      const response = await fetch(
+        "https://restcountries.eu/rest/v2/all?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders;flag"
+      );
       const data = await response.json();
       isLoading.value = false;
       countries.value = data;
