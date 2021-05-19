@@ -13,7 +13,7 @@ interface Language {
   nativeName: string;
 }
 
-export interface Location {
+export interface Country {
   name: string;
   nativeName: string;
   population: number;
@@ -27,14 +27,14 @@ export interface Location {
   flag: string;
 }
 
-const countries = ref<Location[] | undefined>(undefined);
+const countries = ref<Country[] | undefined>(undefined);
 const error = ref("");
 const isLoading = ref(false);
 
 export const useGetCountry = (): {
   error: Ref<string>;
   isLoading: Ref<boolean>;
-  countries: Ref<Location[] | undefined>;
+  countries: Ref<Country[] | undefined>;
   getAllCountries: () => Promise<void>;
 } => {
   const getAllCountries = async () => {
