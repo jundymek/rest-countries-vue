@@ -36,7 +36,9 @@ export const useGetCountry = (): {
   error: Ref<string>;
   isLoading: Ref<boolean>;
   countries: Ref<CountryType[] | undefined>;
+
   getAllCountries: () => Promise<void>;
+  getCountriesByRegion: (region: string) => Promise<void>;
   filteredCountries: Ref<CountryType[] | undefined>;
 } => {
   const getAllCountries = async () => {
@@ -58,11 +60,29 @@ export const useGetCountry = (): {
     }
   };
 
+  const getCountriesByRegion = async (region: string) => {
+    if (isLoading.value) return;
+    isLoading.value = true;
+
+    try {
+      const response = await fetch(`https://restcountries.eu/rest/v2/region/${region}`);
+      const data = await response.json();
+      isLoading.value = false;
+      countries.value = data;
+      filteredCountries.value = data;
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+      isLoading.value = false;
+    }
+  };
+
   return {
     error,
     isLoading: computed(() => isLoading.value),
     countries,
     getAllCountries,
+    getCountriesByRegion,
     filteredCountries,
   };
 };
