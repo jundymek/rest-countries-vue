@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1 class="title">Where in the world?</h1>
+    <router-link to="/"><h1 class="title">Where in the world?</h1></router-link>
     <button>Dark mode</button>
   </header>
 </template>

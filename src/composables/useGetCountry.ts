@@ -65,7 +65,9 @@ export const useGetCountry = (): {
     isLoading.value = true;
 
     try {
-      const response = await fetch(`https://restcountries.eu/rest/v2/region/${region}`);
+      const response = await fetch(
+        `https://restcountries.eu/rest/v2/region/${region}`
+      );
       const data = await response.json();
       isLoading.value = false;
       countries.value = data;

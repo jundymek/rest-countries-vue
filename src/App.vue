@@ -1,23 +1,17 @@
 <template>
   <div class="outer-wrapper">
     <page-header />
-    <countries />
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useGetCountry } from "@/composables/useGetCountry";
 import PageHeader from "@/components/pageHeader/PageHeader.vue";
-import Countries from "@/components/countries/Countries.vue";
 
 export default defineComponent({
   name: "App",
-  components: { PageHeader, Countries },
-  setup() {
-    const { getAllCountries } = useGetCountry();
-    getAllCountries();
-  },
+  components: { PageHeader },
 });
 </script>
 
