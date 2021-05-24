@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <router-link to="/"><h1 class="title">Where in the world?</h1></router-link>
+    <router-link to="/" class="title"><h1>Where in the world?</h1></router-link>
     <button>Dark mode</button>
   </header>
 </template>
@@ -22,5 +22,9 @@ export default defineComponent({
   justify-content: space-between;
   align-items: center;
   height: 100px;
+}
+
+.title {
+  text-decoration: none;
 }
 </style>
