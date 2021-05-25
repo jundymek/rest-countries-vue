@@ -1,6 +1,6 @@
 <template>
+  <page-header />
   <div class="outer-wrapper">
-    <page-header />
     <router-view />
   </div>
 </template>
@@ -16,16 +16,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap");
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: $veryDarkBlueLight;
 }
 
 body {
   background: $veryLightGray;
+  margin: 0;
+  padding: 0;
 }
 
 .outer-wrapper {

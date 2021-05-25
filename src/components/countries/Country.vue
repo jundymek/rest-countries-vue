@@ -1,13 +1,15 @@
 <template>
-  <section class="box">
-    <img :src="country.flag" alt="" srcset="" class="flag" />
-    <div class="content">
-      <h2 class="name">{{ country.name }}</h2>
-      <p>Population: {{ country.population }}</p>
-      <p>Region: {{ country.region }}</p>
-      <p>Capital: {{ country.capital }}</p>
-    </div>
-  </section>
+  <router-link :to="{ name: 'Country', params: { countryName: country.name } }">
+    <section class="box">
+      <img :src="country.flag" alt="" srcset="" class="flag" />
+      <div class="content">
+        <h2 class="name">{{ country.name }}</h2>
+        <p>Population: {{ country.population }}</p>
+        <p>Region: {{ country.region }}</p>
+        <p>Capital: {{ country.capital }}</p>
+      </div>
+    </section>
+  </router-link>
 </template>
 
 <script lang="ts">
