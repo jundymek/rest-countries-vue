@@ -36,6 +36,16 @@
             </li>
           </ul>
         </div>
+        <div class="borders">
+          <span>Border Countries: </span>
+          <button
+            v-for="border in country[0].borders"
+            :key="border"
+            class="border-btn"
+          >
+            {{ countryCodes[border] }}
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -48,10 +58,10 @@ import { defineComponent } from "vue";
 export default defineComponent({
   props: ["countryName"],
   setup(props) {
-    const { getCountryByName, country } = useGetCountry();
+    const { getCountryByName, country, countryCodes } = useGetCountry();
     getCountryByName(props.countryName);
-
-    return { country };
+    console.log(countryCodes);
+    return { country, countryCodes };
   },
 });
 </script>
@@ -114,8 +124,31 @@ export default defineComponent({
   li {
     padding: 4px 0;
   }
-  span {
-    font-weight: 600;
-  }
+}
+span {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.borders {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.border-btn {
+  /* width: 80px; */
+  height: 20px;
+  font-family: "Nunito Sans", sans-serif;
+  display: flex;
+  margin: 0 10px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 12px;
+  background: $veryLightGray;
+  box-shadow: 0.5px 0.5px 2px 0.1px rgb(184, 182, 182);
 }
 </style>

@@ -36,9 +36,10 @@ export default defineComponent({
     const input = ref("");
     const selectedRegion = ref<string | null>(null);
     const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
-    const { getAllCountries, getCountriesByRegion, countries } =
+    const { getAllCountries, getCountriesByRegion, countries, countryCodes } =
       useGetCountry();
     getAllCountries();
+    console.log(countryCodes);
     const filteredCountries = computed(() =>
       countries.value?.filter((item) =>
         item.name.toLowerCase().includes(input.value.toLowerCase())

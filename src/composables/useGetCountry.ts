@@ -25,11 +25,16 @@ export interface CountryType {
   languages: Language[];
   borders: string[];
   flag: string;
-  alphaCode: string;
+  alpha3Code: string;
+}
+
+export interface CountryCodesType {
+  [key: string]: string;
 }
 
 const countries = ref<CountryType[] | undefined>(undefined);
 const country = ref<CountryType | undefined>(undefined);
+const countryCodes = ref<CountryCodesType | undefined>(undefined);
 const filteredCountries = ref<CountryType[] | undefined>(undefined);
 const error = ref("");
 const isLoading = ref(false);
@@ -39,6 +44,7 @@ export const useGetCountry = (): {
   isLoading: Ref<boolean>;
   countries: Ref<CountryType[] | undefined>;
   country: Ref<CountryType | undefined>;
+  countryCodes: Ref<CountryCodesType | undefined>;
   getAllCountries: () => Promise<void>;
   getCountriesByRegion: (region: string) => Promise<void>;
   getCountryByName: (country: string) => Promise<void>;
@@ -56,6 +62,7 @@ export const useGetCountry = (): {
       isLoading.value = false;
       countries.value = data;
       filteredCountries.value = data;
+      createCountryCodes();
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -99,6 +106,16 @@ export const useGetCountry = (): {
     }
   };
 
+  const createCountryCodes = () => {
+    const borders: CountryCodesType = {};
+    if (countries.value) {
+      for (const key of countries.value) {
+        borders[key.alpha3Code] = key.name;
+      }
+    }
+    countryCodes.value = borders;
+  };
+
   return {
     error,
     isLoading: computed(() => isLoading.value),
@@ -108,5 +125,6 @@ export const useGetCountry = (): {
     getCountriesByRegion,
     getCountryByName,
     filteredCountries,
+    countryCodes,
   };
 };
