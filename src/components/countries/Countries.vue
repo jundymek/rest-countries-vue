@@ -11,22 +11,23 @@
     <Multiselect
       v-model="selectedRegion"
       :options="regions"
-      class="dupa"
+      class="select"
       placeholder="Filter by region"
     />
   </div>
-  <div class="wrapper">
+  <div class="wrapper" v-if="filteredCountries && filteredCountries.length">
     <country
       v-for="country in filteredCountries"
       :key="country.name"
       :country="country"
     />
   </div>
+  <div v-else>No data</div>
 </template>
 
 <script lang="ts">
 import { useGetCountry } from "@/composables/useGetCountry";
-import { computed, defineComponent, ref, watch } from "vue";
+import { defineComponent, ref, watch } from "vue";
 import Country from "./Country.vue";
 import Multiselect from "@vueform/multiselect";
 
@@ -36,21 +37,22 @@ export default defineComponent({
     const input = ref("");
     const selectedRegion = ref<string | null>(null);
     const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
-    const { getAllCountries, getCountriesByRegion, countries, countryCodes } =
-      useGetCountry();
-    getAllCountries();
-    console.log(countryCodes);
-    const filteredCountries = computed(() =>
-      countries.value?.filter((item) =>
-        item.name.toLowerCase().includes(input.value.toLowerCase())
-      )
-    );
+    const {
+      getAllCountries,
+      getCountriesByRegion,
+      getCountriesByInputValue,
+      filteredCountries,
+    } = useGetCountry();
 
     watch(selectedRegion, () => {
       if (selectedRegion.value) {
         return getCountriesByRegion(selectedRegion.value);
       }
       return getAllCountries();
+    });
+
+    watch(input, () => {
+      getCountriesByInputValue(input.value);
     });
 
     return { input, filteredCountries, selectedRegion, regions };
@@ -63,8 +65,9 @@ export default defineComponent({
 .wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-column-gap: 40px;
+  grid-column-gap: 66px;
   grid-row-gap: 80px;
+  padding: 0 80px;
 }
 
 .input {
@@ -80,9 +83,10 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 0 80px;
 }
 
-.dupa {
+.select {
   width: 160px;
   margin-right: 0;
 }

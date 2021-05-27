@@ -8,10 +8,15 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import PageHeader from "@/components/pageHeader/PageHeader.vue";
+import { useGetCountry } from "./composables/useGetCountry";
 
 export default defineComponent({
   name: "App",
   components: { PageHeader },
+  setup() {
+    const { getAllCountries } = useGetCountry();
+    getAllCountries();
+  },
 });
 </script>
 

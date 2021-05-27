@@ -47,6 +47,7 @@ export const useGetCountry = (): {
   countryCodes: Ref<CountryCodesType | undefined>;
   getAllCountries: () => Promise<void>;
   getCountriesByRegion: (region: string) => Promise<void>;
+  getCountriesByInputValue: (input: string) => void;
   getCountryByName: (country: string) => Promise<void>;
   filteredCountries: Ref<CountryType[] | undefined>;
 } => {
@@ -63,7 +64,6 @@ export const useGetCountry = (): {
       countries.value = data;
       filteredCountries.value = data;
       createCountryCodes();
-      console.log(data);
     } catch (error) {
       console.log(error);
       isLoading.value = false;
@@ -71,6 +71,10 @@ export const useGetCountry = (): {
   };
 
   const getCountriesByRegion = async (region: string) => {
+    if (!region.length) {
+      filteredCountries.value = countries.value;
+      return;
+    }
     if (isLoading.value) return;
     isLoading.value = true;
 
@@ -80,10 +84,22 @@ export const useGetCountry = (): {
       isLoading.value = false;
       countries.value = data;
       filteredCountries.value = data;
-      console.log(data);
     } catch (error) {
       console.log(error);
       isLoading.value = false;
+    }
+  };
+
+  const getCountriesByInputValue = (input: string) => {
+    if (!input.length) {
+      filteredCountries.value = countries.value;
+      return;
+    }
+    const filtered = countries.value?.filter((item) => item.name.toLowerCase().includes(input.toLowerCase()));
+    if (filtered?.length) {
+      filteredCountries.value = filtered;
+    } else {
+      filteredCountries.value = undefined;
     }
   };
 
@@ -96,10 +112,8 @@ export const useGetCountry = (): {
         `https://restcountries.eu/rest/v2/name/${countryName}?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders;flag;alpha3Code`
       );
       const data = await response.json();
-      console.log(data);
       isLoading.value = false;
       country.value = data;
-      filteredCountries.value = data;
     } catch (error) {
       console.log(error);
       isLoading.value = false;
@@ -123,6 +137,7 @@ export const useGetCountry = (): {
     country,
     getAllCountries,
     getCountriesByRegion,
+    getCountriesByInputValue,
     getCountryByName,
     filteredCountries,
     countryCodes,

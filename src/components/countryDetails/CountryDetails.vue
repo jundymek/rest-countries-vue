@@ -1,14 +1,14 @@
 <template>
   <div v-if="country" class="outer-wrapper">
-    <button class="button">
+    <router-link class="back-link" to="/">
       <img
         :src="require(`@/assets/arrow-back-outline.svg`)"
         alt=""
         width="20"
         height="20"
       />
-      <span class="button__text">Back</span>
-    </button>
+      <span class="back-link__text">Back</span>
+    </router-link>
     <div class="details-wrapper">
       <img :src="country[0].flag" alt="" srcset="" class="flag" />
       <div class="info-wrapper">
@@ -38,13 +38,17 @@
         </div>
         <div class="borders">
           <span>Border Countries: </span>
-          <button
+          <router-link
             v-for="border in country[0].borders"
-            :key="border"
-            class="border-btn"
+            :to="{
+              name: 'Country',
+              params: { countryName: countryCodes[border] },
+            }"
+            :key="countryCodes[border]"
+            class="border-link"
           >
             {{ countryCodes[border] }}
-          </button>
+          </router-link>
         </div>
       </div>
     </div>
@@ -53,14 +57,17 @@
 
 <script lang="ts">
 import { useGetCountry } from "@/composables/useGetCountry";
-import { defineComponent } from "vue";
+import { defineComponent, watch } from "vue";
 
 export default defineComponent({
   props: ["countryName"],
   setup(props) {
     const { getCountryByName, country, countryCodes } = useGetCountry();
     getCountryByName(props.countryName);
-    console.log(countryCodes);
+    watch(
+      () => props.countryName,
+      () => getCountryByName(props.countryName)
+    );
     return { country, countryCodes };
   },
 });
@@ -73,10 +80,11 @@ export default defineComponent({
   margin-top: 60px;
 }
 
-.button {
+.back-link {
   width: 120px;
   height: 30px;
   font-family: "Nunito Sans", sans-serif;
+  text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,14 +99,15 @@ export default defineComponent({
 
 .details-wrapper {
   display: flex;
+  align-items: center;
   margin-top: 60px;
 }
 
 .flag {
   width: 50%;
   height: 50%;
-  max-width: 560px;
-  max-height: 400px;
+  max-width: 378px;
+  max-height: 270px;
 }
 
 .info-wrapper {
@@ -136,12 +145,15 @@ span {
   align-items: center;
 }
 
-.border-btn {
-  /* width: 80px; */
+.border-link {
+  min-width: 80px;
   height: 20px;
   font-family: "Nunito Sans", sans-serif;
   display: flex;
   margin: 0 10px;
+  padding: 2px 4px;
+  text-decoration: none;
+  color: $veryDarkBlue;
   justify-content: center;
   align-items: center;
   border: none;
