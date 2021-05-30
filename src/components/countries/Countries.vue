@@ -27,9 +27,10 @@
 
 <script lang="ts">
 import { useGetCountry } from "@/composables/useGetCountry";
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, onMounted, ref, watch } from "vue";
 import Country from "./Country.vue";
 import Multiselect from "@vueform/multiselect";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   components: { Country, Multiselect },
@@ -44,6 +45,8 @@ export default defineComponent({
       filteredCountries,
     } = useGetCountry();
 
+    const router = useRouter();
+
     watch(selectedRegion, () => {
       if (selectedRegion.value) {
         return getCountriesByRegion(selectedRegion.value);
@@ -53,6 +56,21 @@ export default defineComponent({
 
     watch(input, () => {
       getCountriesByInputValue(input.value);
+    });
+
+    onMounted(() => {
+      if (localStorage.getItem("selectedRegion")) {
+        selectedRegion.value = localStorage.getItem("selectedRegion");
+      }
+    });
+
+    router.beforeEach((to, from, next) => {
+      if (selectedRegion.value) {
+        localStorage.setItem("selectedRegion", selectedRegion.value);
+      } else {
+        localStorage.removeItem("selectedRegion");
+      }
+      next();
     });
 
     return { input, filteredCountries, selectedRegion, regions };
@@ -67,7 +85,7 @@ export default defineComponent({
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 66px;
   grid-row-gap: 80px;
-  padding: 0 80px;
+  padding: 20px 80px 60px 80px;
 }
 
 .input {
