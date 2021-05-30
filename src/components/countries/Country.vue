@@ -4,12 +4,17 @@
     class="country-link"
   >
     <section class="box">
-      <img :src="country.flag" alt="" srcset="" class="flag" />
+      <div
+        class="flag"
+        :style="'background-image: url(' + country.flag + ')'"
+      ></div>
       <div class="content">
         <h2 class="content__title">{{ country.name }}</h2>
-        <p class="content__item">Population: {{ country.population }}</p>
-        <p class="content__item">Region: {{ country.region }}</p>
-        <p class="content__item">Capital: {{ country.capital }}</p>
+        <p class="content__item">
+          <span>Population:</span> {{ country.population }}
+        </p>
+        <p class="content__item"><span>Region:</span> {{ country.region }}</p>
+        <p class="content__item"><span>Capital:</span> {{ country.capital }}</p>
       </div>
     </section>
   </router-link>
@@ -52,22 +57,28 @@ export default defineComponent({
 }
 
 .flag {
+  background-size: cover;
   height: 160px;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
-  max-height: 200px;
   width: 100%;
 }
 
 .content {
   height: 50%;
-  margin: 10px 20px;
+  margin: 0 20px;
   text-decoration: none;
   &__title {
-    margin: 0;
+    margin: 20px 0;
+    font-size: 18px;
   }
   &__item {
     text-decoration: none;
+    margin: 5px 0;
+    font-size: 14px;
+    span {
+      font-weight: 600;
+    }
   }
 }
 </style>
