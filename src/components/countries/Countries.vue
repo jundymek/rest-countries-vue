@@ -82,10 +82,14 @@ export default defineComponent({
 @import url("~@vueform/multiselect/themes/default.css");
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
   grid-column-gap: 66px;
   grid-row-gap: 80px;
   padding: 20px 80px 60px 80px;
+  @media (max-width: $desktop) {
+    grid-row-gap: 40px;
+    padding: 0 40px;
+  }
 }
 
 .input {
@@ -95,6 +99,10 @@ export default defineComponent({
   border: none;
   border-radius: 4px;
   box-shadow: 0 0 1px 0.1px $darkGray;
+  @media (max-width: $desktop) {
+    box-sizing: border-box;
+    width: 100%;
+  }
 }
 
 .filter-wrapper {
@@ -102,11 +110,21 @@ export default defineComponent({
   justify-content: space-between;
   align-items: center;
   padding: 0 80px;
+  @media (max-width: $desktop) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 0 40px 0;
+    width: 90%;
+    margin: 0 auto;
+  }
 }
 
 .select {
   width: 160px;
   margin-right: 0;
+  @media (max-width: $desktop) {
+    margin-left: 0;
+  }
 }
 
 .multiselect-options {
