@@ -16,7 +16,10 @@
         <div class="info">
           <ul class="left">
             <li><span>Native name:</span> {{ country[0].nativeName }}</li>
-            <li><span>Population:</span> {{ country[0].population }}</li>
+            <li>
+              <span>Population:</span>
+              {{ country[0].population.toLocaleString() }}
+            </li>
             <li><span>Region:</span> {{ country[0].region }}</li>
             <li><span>Sub region:</span> {{ country[0].subregion }}</li>
             <li><span>Capital:</span> {{ country[0].capital }}</li>

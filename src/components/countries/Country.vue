@@ -10,9 +10,7 @@
       ></div>
       <div class="content">
         <h2 class="content__title">{{ country.name }}</h2>
-        <p class="content__item">
-          <span>Population:</span> {{ country.population }}
-        </p>
+        <p class="content__item"><span>Population:</span> {{ population }}</p>
         <p class="content__item"><span>Region:</span> {{ country.region }}</p>
         <p class="content__item"><span>Capital:</span> {{ country.capital }}</p>
       </div>
@@ -22,7 +20,7 @@
 
 <script lang="ts">
 import { CountryType } from "@/composables/useGetCountry";
-import { defineComponent, PropType } from "vue";
+import { computed, defineComponent, PropType } from "vue";
 
 export default defineComponent({
   props: {
@@ -32,7 +30,10 @@ export default defineComponent({
     },
   },
   setup(props) {
-    return { props };
+    const population = computed(() =>
+      props.country.population.toLocaleString()
+    );
+    return { props, population };
   },
 });
 </script>
