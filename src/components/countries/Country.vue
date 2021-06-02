@@ -51,9 +51,10 @@ export default defineComponent({
   width: 265px;
   min-height: 340px;
   padding: 0;
+  color: var(--text-color);
   display: flex;
   flex-direction: column;
-  background: $white;
+  background: var(--box-color);
   border-radius: 6px;
 }
 

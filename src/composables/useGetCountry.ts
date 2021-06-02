@@ -79,7 +79,9 @@ export const useGetCountry = (): {
     isLoading.value = true;
 
     try {
-      const response = await fetch(`https://restcountries.eu/rest/v2/region/${region}`);
+      const response = await fetch(
+        `https://restcountries.eu/rest/v2/region/${region}`
+      );
       const data = await response.json();
       isLoading.value = false;
       countries.value = data;
@@ -95,7 +97,9 @@ export const useGetCountry = (): {
       filteredCountries.value = countries.value;
       return;
     }
-    const filtered = countries.value?.filter((item) => item.name.toLowerCase().includes(input.toLowerCase()));
+    const filtered = countries.value?.filter((item) =>
+      item.name.toLowerCase().includes(input.toLowerCase())
+    );
     if (filtered?.length) {
       filteredCountries.value = filtered;
     } else {
