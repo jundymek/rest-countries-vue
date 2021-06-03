@@ -1,13 +1,15 @@
 <template>
   <div class="filter-wrapper">
-    <input
-      type="text"
-      name="searchInput"
-      v-model="input"
-      id="ipInput"
-      placeholder="Search for a country..."
-      class="input"
-    />
+    <label>
+      <input
+        type="text"
+        name="searchInput"
+        v-model="input"
+        id="ipInput"
+        placeholder="Search for a country..."
+        class="input"
+      />
+    </label>
     <Multiselect
       v-model="selectedRegion"
       :options="regions"
@@ -93,15 +95,29 @@ export default defineComponent({
 }
 
 .input {
-  width: 34%;
+  width: 400px;
   margin: 20px 0;
-  padding: 15px;
+  padding: 15px 40px;
   border: none;
   border-radius: 4px;
   box-shadow: 0 0 1px 0.1px $darkGray;
   @media (max-width: $desktop) {
     box-sizing: border-box;
     width: 100%;
+  }
+}
+label {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 12px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("~@/assets/search-outline.svg");
   }
 }
 

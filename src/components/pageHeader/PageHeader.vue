@@ -4,22 +4,35 @@
       <router-link to="/" class="title"
         ><h1>Where in the world?</h1></router-link
       >
-      <button @click="toggleTheme">
-        {{ theme == "light" ? "Jasne" : "Ciemne" }}
+      <button @click="toggleTheme" class="toggle-button">
+        <img
+          :src="require(`@/assets/${iconUrl}`)"
+          alt=""
+          width="14"
+          height="14"
+          :class="iconStyle"
+        />
+        <span :class="spanStyle">{{
+          theme == "light" ? "Light mode" : "Dark Mode"
+        }}</span>
       </button>
     </header>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 import { useTheme } from "@/composables/useTheme";
 
 export default defineComponent({
   setup() {
     const { theme, toggleTheme } = useTheme();
-    console.log(theme.value);
-    return { toggleTheme, theme };
+    const iconUrl = computed(() =>
+      theme.value == "dark" ? "moon-outline.svg" : "sunny-outline.svg"
+    );
+    const iconStyle = computed(() => theme.value == "dark" && "toggle-icon");
+    const spanStyle = computed(() => theme.value == "dark" && "dark");
+    return { toggleTheme, theme, iconStyle, spanStyle, iconUrl };
   },
 });
 </script>
@@ -45,5 +58,29 @@ export default defineComponent({
   text-decoration: none;
   color: var(--text-color);
   font-size: 14px;
+}
+
+.toggle-icon {
+  filter: invert(100%) sepia(0%) saturate(7443%) hue-rotate(198deg)
+    brightness(126%) contrast(112%);
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  /* width: 70px; */
+  justify-content: space-between;
+  cursor: pointer;
+
+  span {
+    color: $veryDarkBlue;
+    padding-left: 10px;
+  }
+  .dark {
+    color: white !important;
+  }
 }
 </style>
