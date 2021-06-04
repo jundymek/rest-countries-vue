@@ -29,6 +29,15 @@ export default defineComponent({
   --box-color: #fff;
   --text-color: hsl(200, 15%, 8%);
   --box-shadow: rgb(231, 231, 231);
+
+  // input
+  --input-box: hsl(0, 0%, 98%);
+  --input-placeholder: rgb(167, 165, 165);
+  --input-icon-invert: invert(30%) sepia(0%) saturate(7443%) hue-rotate(198deg)
+    brightness(126%) contrast(112%);
+
+  //multiselect
+  --multiselect-box: #fff;
 }
 
 [data-theme="dark"] {
@@ -37,6 +46,15 @@ export default defineComponent({
   --background-color: hsl(207, 26%, 17%);
   --text-color: hsl(0, 0%, 100%);
   --box-color: hsl(209, 23%, 22%);
+
+  // input
+  --input-box: hsl(209, 23%, 22%);
+  --input-placeholder: hsl(0, 0%, 100%);
+  --input-icon-invert: invert(100%) sepia(0%) saturate(7443%) hue-rotate(198deg)
+    brightness(126%) contrast(112%);
+
+  //multiselect
+  --multiselect-box: hsl(209, 23%, 22%);
 }
 
 #app {

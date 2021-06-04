@@ -97,10 +97,15 @@ export default defineComponent({
 .input {
   width: 400px;
   margin: 20px 0;
-  padding: 15px 40px;
+  padding: 15px 50px;
   border: none;
   border-radius: 4px;
+  /* color: red; */
+  background-color: var(--input-box);
   box-shadow: 0 0 1px 0.1px $darkGray;
+  &::placeholder {
+    color: var(--input-placeholder);
+  }
   @media (max-width: $desktop) {
     box-sizing: border-box;
     width: 100%;
@@ -114,9 +119,10 @@ label {
     left: 20px;
     top: 0;
     bottom: 0;
-    width: 12px;
+    width: 16px;
     background-position: center;
     background-repeat: no-repeat;
+    filter: var(--input-icon-invert);
     background-image: url("~@/assets/search-outline.svg");
   }
 }
@@ -148,15 +154,35 @@ label {
   font-size: 10px;
   overflow: unset;
   border-radius: 4px;
+  border-color: var(--multiselect-box);
 }
 
 .multiselect-input {
   font-size: 10px;
-  background: #fff;
+  background: var(--multiselect-box);
   border: none;
 }
 .multiselect-option {
   padding: 5px 12px;
+  background: var(--multiselect-box);
   min-height: unset;
+  color: var(--text-color);
+  &.is-pointed {
+    background-color: var(--multiselect-box);
+  }
+  &:hover {
+    background: var(--multiselect-box);
+  }
+}
+
+.multiselect-placeholder {
+  color: var(--text-color);
+}
+.multiselect-label {
+  color: var(--text-color);
+}
+
+.multiselect-clear {
+  background-color: var(--multiselect-box);
 }
 </style>
