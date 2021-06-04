@@ -90,7 +90,7 @@ export default defineComponent({
   padding: 20px 80px 60px 80px;
   @media (max-width: $desktop) {
     grid-row-gap: 40px;
-    padding: 0 40px;
+    padding: 0;
   }
 }
 
@@ -100,11 +100,11 @@ export default defineComponent({
   padding: 15px 50px;
   border: none;
   border-radius: 4px;
-  /* color: red; */
   background-color: var(--input-box);
   box-shadow: 0 0 1px 0.1px $darkGray;
   &::placeholder {
     color: var(--input-placeholder);
+    font-size: 10px;
   }
   @media (max-width: $desktop) {
     box-sizing: border-box;

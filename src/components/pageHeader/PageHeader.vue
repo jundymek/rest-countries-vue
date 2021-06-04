@@ -1,8 +1,8 @@
 <template>
   <div class="header-wrapper">
     <header class="header">
-      <router-link to="/" class="title"
-        ><h1>Where in the world?</h1></router-link
+      <router-link to="/" class="router"
+        ><h1 class="title">Where in the world?</h1></router-link
       >
       <button @click="toggleTheme" class="toggle-button">
         <img
@@ -52,12 +52,23 @@ export default defineComponent({
   box-sizing: border-box;
   margin: 0 auto;
   padding: 0 80px;
+  height: 60px;
+  @media (max-width: $desktop) {
+    padding: 0px 10px;
+  }
+}
+
+.router {
+  text-decoration: none;
 }
 
 .title {
-  text-decoration: none;
   color: var(--text-color);
-  font-size: 14px;
+  font-size: 18px;
+  letter-spacing: 0.2px;
+  @media (max-width: $desktop) {
+    font-size: 12px;
+  }
 }
 
 .toggle-icon {
@@ -71,16 +82,21 @@ export default defineComponent({
   display: flex;
   align-items: center;
   color: #fff;
-  /* width: 70px; */
   justify-content: space-between;
   cursor: pointer;
-
+  font-family: "Nunito Sans", sans-serif;
   span {
     color: $veryDarkBlue;
-    padding-left: 10px;
+    padding-left: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    @media (max-width: $desktop) {
+      font-size: 12px;
+      font-weight: bold;
+    }
   }
   .dark {
-    color: white !important;
+    color: #fff;
   }
 }
 </style>
