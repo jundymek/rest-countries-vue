@@ -6,6 +6,7 @@
         alt=""
         width="20"
         height="20"
+        :class="iconStyle"
       />
       <span class="back-link__text">Back</span>
     </router-link>
@@ -34,11 +35,11 @@
             </li>
             <li>
               <span>Currencies:</span>
-              {{ country[0].currencies.map((item) => item.name).join() }}
+              {{ country[0].currencies.map((item) => item.name).join(", ") }}
             </li>
             <li>
               <span>Languages:</span>
-              {{ country[0].languages.map((item) => item.name).join() }}
+              {{ country[0].languages.map((item) => item.name).join(", ") }}
             </li>
           </ul>
         </div>
@@ -65,18 +66,21 @@
 
 <script lang="ts">
 import { useGetCountry } from "@/composables/useGetCountry";
-import { defineComponent, watch } from "vue";
+import { useTheme } from "@/composables/useTheme";
+import { computed, defineComponent, watch } from "vue";
 
 export default defineComponent({
   props: ["countryName"],
   setup(props) {
     const { getCountryByName, country, countryCodes } = useGetCountry();
+    const { theme } = useTheme();
+    const iconStyle = computed(() => theme.value == "dark" && "toggle-icon");
     getCountryByName(props.countryName);
     watch(
       () => props.countryName,
       () => getCountryByName(props.countryName)
     );
-    return { country, countryCodes };
+    return { country, countryCodes, iconStyle };
   },
 });
 </script>
@@ -90,11 +94,12 @@ export default defineComponent({
   padding: 0 80px;
   @media (max-width: $desktop) {
     padding: 0 20px;
+    margin-top: 40px;
   }
 }
 
 .back-link {
-  width: 120px;
+  width: 100px;
   height: 30px;
   font-family: "Nunito Sans", sans-serif;
   text-decoration: none;
@@ -103,11 +108,17 @@ export default defineComponent({
   align-items: center;
   border: none;
   border-radius: 4px;
-  background: $veryLightGray;
-  box-shadow: 0.5px 0.5px 2px 0.1px rgb(184, 182, 182);
+  background: var(--input-box);
+  color: var(--text-color);
+  box-shadow: 0.5px 0.5px 2px 0.1px var(--button-shadow);
   &__text {
     margin-left: 10px;
   }
+}
+
+.toggle-icon {
+  filter: invert(60%) sepia(0%) saturate(7443%) hue-rotate(198deg)
+    brightness(126%) contrast(112%);
 }
 
 .details-wrapper {
@@ -204,14 +215,14 @@ span {
   padding: 2px 4px;
   text-decoration: none;
   text-align: center;
-  color: $veryDarkBlue;
+  color: var(--text-color);
   justify-content: center;
   align-items: center;
   border: none;
   cursor: pointer;
   border-radius: 4px;
   font-size: 12px;
-  background: $veryLightGray;
-  box-shadow: 0.5px 0.5px 2px 0.1px rgb(184, 182, 182);
+  background: var(--input-box);
+  box-shadow: 0.5px 0.5px 2px 0.1px var(--button-shadow);
 }
 </style>

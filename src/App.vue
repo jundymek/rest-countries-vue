@@ -38,6 +38,9 @@ export default defineComponent({
 
   //multiselect
   --multiselect-box: #fff;
+
+  // buttons
+  --button-shadow: rgb(184, 182, 182);
 }
 
 [data-theme="dark"] {
@@ -55,6 +58,9 @@ export default defineComponent({
 
   //multiselect
   --multiselect-box: hsl(209, 23%, 22%);
+
+  // buttons
+  --button-shadow: hsl(207, 26%, 17%);
 }
 
 #app {
