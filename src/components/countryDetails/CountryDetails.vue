@@ -10,7 +10,10 @@
       <span class="back-link__text">Back</span>
     </router-link>
     <div class="details-wrapper">
-      <img :src="country[0].flag" alt="" srcset="" class="flag" />
+      <div
+        class="flag"
+        :style="'background-image: url(' + country[0].flag + ')'"
+      ></div>
       <div class="info-wrapper">
         <h2 class="title">{{ country[0].name }}</h2>
         <div class="info">
@@ -39,19 +42,21 @@
             </li>
           </ul>
         </div>
-        <div class="borders">
+        <div class="borders-wrapper">
           <span>Border Countries: </span>
-          <router-link
-            v-for="border in country[0].borders"
-            :to="{
-              name: 'Country',
-              params: { countryName: countryCodes[border] },
-            }"
-            :key="countryCodes[border]"
-            class="border-link"
-          >
-            {{ countryCodes[border] }}
-          </router-link>
+          <div class="borders">
+            <router-link
+              v-for="border in country[0].borders"
+              :to="{
+                name: 'Country',
+                params: { countryName: countryCodes[border] },
+              }"
+              :key="countryCodes[border]"
+              class="border-link"
+            >
+              {{ countryCodes[border] }}
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -81,6 +86,11 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   margin-top: 60px;
+  max-width: 1440px;
+  padding: 0 80px;
+  @media (max-width: $desktop) {
+    padding: 0 20px;
+  }
 }
 
 .back-link {
@@ -103,25 +113,43 @@ export default defineComponent({
 .details-wrapper {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-top: 60px;
+  @media (max-width: $desktop) {
+    flex-direction: column;
+  }
 }
 
 .flag {
+  background-size: cover;
   width: 50%;
-  height: 50%;
-  max-width: 378px;
-  max-height: 270px;
+  height: 100%;
+  min-height: 22em;
+  @media (max-width: $desktop) {
+    width: 100%;
+    height: calc(100vw - 22em);
+    min-height: 12em;
+    /* min-height: 100%; */
+  }
 }
 
 .info-wrapper {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding: 10px 80px;
+  width: 50%;
+  padding: 10px 0 10px 80px;
+  @media (max-width: $desktop) {
+    width: 100%;
+    padding: 0;
+  }
 }
 
 .info {
   display: flex;
+  justify-content: space-between;
+  @media (max-width: $desktop) {
+    flex-direction: column;
+  }
 }
 
 .left,
@@ -131,10 +159,15 @@ export default defineComponent({
   list-style-type: none;
   margin: 0;
   padding: 0;
-  width: 50%;
   font-size: 12px;
   li {
     padding: 4px 0;
+  }
+}
+
+.right {
+  @media (max-width: $desktop) {
+    padding-top: 20px;
   }
 }
 span {
@@ -142,20 +175,35 @@ span {
   font-size: 12px;
 }
 
-.borders {
+.borders-wrapper {
   margin-top: 40px;
   display: flex;
   align-items: center;
+  @media (max-width: $desktop) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 40px;
+  }
+}
+
+.borders {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 5px;
+  @media (max-width: $desktop) {
+    margin: 10px 0 0 -5px;
+  }
 }
 
 .border-link {
   min-width: 80px;
-  height: 20px;
+  min-height: 20px;
   font-family: "Nunito Sans", sans-serif;
   display: flex;
-  margin: 0 10px;
+  margin: 5px 5px;
   padding: 2px 4px;
   text-decoration: none;
+  text-align: center;
   color: $veryDarkBlue;
   justify-content: center;
   align-items: center;

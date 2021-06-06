@@ -102,6 +102,7 @@ export default defineComponent({
   border-radius: 4px;
   background-color: var(--input-box);
   box-shadow: 0 0 1px 0.1px $darkGray;
+  color: var(--input-placeholder);
   &::placeholder {
     color: var(--input-placeholder);
     font-size: 10px;
