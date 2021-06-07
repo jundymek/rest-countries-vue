@@ -17,9 +17,9 @@
       placeholder="Filter by region"
     />
   </div>
-  <div class="wrapper" v-if="filteredCountries && filteredCountries.length">
+  <div class="wrapper" v-if="visibleCountries && visibleCountries.length">
     <country
-      v-for="country in filteredCountries"
+      v-for="country in visibleCountries"
       :key="country.name"
       :country="country"
     />
@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { useGetCountry } from "@/composables/useGetCountry";
-import { defineComponent, onMounted, ref, watch } from "vue";
+import { computed, defineComponent, onMounted, ref, watch } from "vue";
 import Country from "./Country.vue";
 import Multiselect from "@vueform/multiselect";
 import { useRouter } from "vue-router";
@@ -40,24 +40,22 @@ export default defineComponent({
     const input = ref("");
     const selectedRegion = ref<string | null>(null);
     const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
-    const {
-      getAllCountries,
-      getCountriesByRegion,
-      getCountriesByInputValue,
-      filteredCountries,
-    } = useGetCountry();
+    const { getAllCountries, getCountriesByRegion, filteredCountries } =
+      useGetCountry();
 
     const router = useRouter();
+
+    const visibleCountries = computed(() =>
+      filteredCountries.value?.filter((item) =>
+        item.name.toLowerCase().includes(input.value.toLowerCase())
+      )
+    );
 
     watch(selectedRegion, () => {
       if (selectedRegion.value) {
         return getCountriesByRegion(selectedRegion.value);
       }
       return getAllCountries();
-    });
-
-    watch(input, () => {
-      getCountriesByInputValue(input.value);
     });
 
     onMounted(() => {
@@ -75,7 +73,13 @@ export default defineComponent({
       next();
     });
 
-    return { input, filteredCountries, selectedRegion, regions };
+    return {
+      input,
+      filteredCountries,
+      selectedRegion,
+      regions,
+      visibleCountries,
+    };
   },
 });
 </script>

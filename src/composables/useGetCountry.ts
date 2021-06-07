@@ -47,7 +47,6 @@ export const useGetCountry = (): {
   countryCodes: Ref<CountryCodesType | undefined>;
   getAllCountries: () => Promise<void>;
   getCountriesByRegion: (region: string) => Promise<void>;
-  getCountriesByInputValue: (input: string) => void;
   getCountryByName: (country: string) => Promise<void>;
   filteredCountries: Ref<CountryType[] | undefined>;
 } => {
@@ -92,21 +91,6 @@ export const useGetCountry = (): {
     }
   };
 
-  const getCountriesByInputValue = (input: string) => {
-    if (!input.length) {
-      filteredCountries.value = countries.value;
-      return;
-    }
-    const filtered = countries.value?.filter((item) =>
-      item.name.toLowerCase().includes(input.toLowerCase())
-    );
-    if (filtered?.length) {
-      filteredCountries.value = filtered;
-    } else {
-      filteredCountries.value = undefined;
-    }
-  };
-
   const getCountryByName = async (countryName: string) => {
     if (isLoading.value) return;
     isLoading.value = true;
@@ -141,7 +125,6 @@ export const useGetCountry = (): {
     country,
     getAllCountries,
     getCountriesByRegion,
-    getCountriesByInputValue,
     getCountryByName,
     filteredCountries,
     countryCodes,
