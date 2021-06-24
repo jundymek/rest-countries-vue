@@ -35,8 +35,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [https://github.com/jundymek/rest-countries-vue](https://github.com/jundymek/job-listings-vue)
-- Live Site URL: [https://jundymek.github.io/rest-countries-vue/](https://jundymek.github.io/job-listings-vue/)
+- Solution URL: [https://github.com/jundymek/rest-countries-vue](https://github.com/jundymek/rest-countries-vue)
+- Live Site URL: [https://jundymek.github.io/rest-countries-vue](https://jundymek.github.io/rest-countries-vue)
 
 ## My process
 
