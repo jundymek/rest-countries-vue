@@ -56,7 +56,7 @@ export const useGetCountry = (): {
 
     try {
       const response = await fetch(
-        "https://restcountries.eu/rest/v2/all?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders;flag;alpha3Code"
+        "https://restcountries.com/v2/all?fields=name,nativeName,population,region,subregion,capital,topLevelDomain,currencies,languages,borders,flag,alpha3Code"
       );
       const data = await response.json();
       isLoading.value = false;
@@ -79,7 +79,7 @@ export const useGetCountry = (): {
 
     try {
       const response = await fetch(
-        `https://restcountries.eu/rest/v2/region/${region}`
+        `https://restcountries.com/v2/region/${region}`
       );
       const data = await response.json();
       isLoading.value = false;
@@ -97,7 +97,7 @@ export const useGetCountry = (): {
 
     try {
       const response = await fetch(
-        `https://restcountries.eu/rest/v2/name/${countryName}?fields=name;nativeName;population;region;subregion;capital;topLevelDomain;currencies;languages;borders;flag;alpha3Code`
+        `https://restcountries.com/v2/name/${countryName}?fields=name,nativeName,population,region,subregion,capital,topLevelDomain,currencies,languages,borders,flag,alpha3Code`
       );
       const data = await response.json();
       isLoading.value = false;

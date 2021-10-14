@@ -17,7 +17,8 @@
       placeholder="Filter by region"
     />
   </div>
-  <div class="wrapper" v-if="visibleCountries && visibleCountries.length">
+  <div v-if="isLoading" class="loading">Loading data...</div>
+  <div class="wrapper" v-else-if="visibleCountries && visibleCountries.length">
     <country
       v-for="country in visibleCountries"
       :key="country.name"
@@ -40,8 +41,12 @@ export default defineComponent({
     const input = ref("");
     const selectedRegion = ref<string | null>(null);
     const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
-    const { getAllCountries, getCountriesByRegion, filteredCountries } =
-      useGetCountry();
+    const {
+      getAllCountries,
+      getCountriesByRegion,
+      filteredCountries,
+      isLoading,
+    } = useGetCountry();
 
     const router = useRouter();
 
@@ -79,6 +84,7 @@ export default defineComponent({
       selectedRegion,
       regions,
       visibleCountries,
+      isLoading,
     };
   },
 });
@@ -86,6 +92,12 @@ export default defineComponent({
 
 <style lang="scss">
 @import url("~@vueform/multiselect/themes/default.css");
+.loading {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
